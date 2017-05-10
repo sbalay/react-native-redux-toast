@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, View } from 'react-native';
-import { Toast, ToastActionsCreators } from 'react-native-redux-toast';
+import { ToastActionsCreators } from 'react-native-redux-toast';
 import { connect } from 'react-redux';
 
 class ToastScene extends Component {
@@ -22,7 +22,6 @@ class ToastScene extends Component {
         <Button title={'Info Toast!'} onPress={this.displayInfoToast} />
         <Button title={'Warning Toast!'} onPress={this.displayWarningToast} />
         <Button title={'Error Toast!'} onPress={this.displayErrorToast} />
-        <Toast messageStyle={{ color: 'white' }} />
       </View>
     );
   }
