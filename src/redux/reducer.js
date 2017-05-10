@@ -1,5 +1,7 @@
 import Immutable from 'seamless-immutable';
 
+import { actions } from './actions';
+
 const defaultState = {
   message: null,
   error: false,
@@ -7,7 +9,7 @@ const defaultState = {
   duration: null
 };
 
-export function reducer(state = Immutable(defaultState), action) {
+export default function reducer(state = Immutable(defaultState), action) {
   switch (action.type) {
     case actions.HIDE:
     case actions.DISPLAY_ERROR:
