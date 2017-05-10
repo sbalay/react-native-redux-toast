@@ -94,7 +94,7 @@ Toast.defaultProps = {
 Toast.propTypes = {
   containerStyle: View.propTypes.style,
   message: React.PropTypes.string,
-  messageStyle: View.propTypes.style, // eslint-disable-line react/no-unused-prop-types
+  messageStyle: Text.propTypes.style, // eslint-disable-line react/no-unused-prop-types
   error: React.PropTypes.bool,
   errorStyle: View.propTypes.style,
   warning: React.PropTypes.bool,

@@ -22,7 +22,7 @@ class ToastScene extends Component {
         <Button title={'Info Toast!'} onPress={this.displayInfoToast} />
         <Button title={'Warning Toast!'} onPress={this.displayWarningToast} />
         <Button title={'Error Toast!'} onPress={this.displayErrorToast} />
-        <Toast />
+        <Toast messageStyle={{ color: 'white' }} />
       </View>
     );
   }
