@@ -1,0 +1,63 @@
+{
+  "name": "react-native-redux-toast",
+  "version": "1.0.0",
+  "description": "Cross platform implementation of Android's toast component. Easy to customize and integrate with redux. 100% written in JS.",
+  "main": "lib/index.js",
+  "scripts": {
+    "lint": "eslint src && eslint index.js",
+    "test": "jest",
+    "coverage": "jest --coverage",
+    "build": "babel index.js -d lib && babel src -d lib/src",
+    "prepublish": "npm run build",
+    "lint-diff": "git diff --name-only --cached --relative | grep \\\\.js$ | xargs eslint",
+    "precommit": "npm run lint-diff"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Wolox/react-native-redux-toast.git"
+  },
+  "keywords": [
+    "react-native",
+    "toast",
+    "redux",
+    "javascript",
+    "android",
+    "ios"
+  ],
+  "author": "Sebastian Balay <sebastian.balay@wolox.com.ar>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Wolox/react-native-redux-toast/issues"
+  },
+  "homepage": "https://github.com/Wolox/react-native-redux-toast",
+  "dependencies": {
+    "seamless-immutable": "^7.1.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-eslint": "^7.2.2",
+    "babel-jest": "^19.0.0",
+    "babel-preset-react-native": "^1.9.1",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-config-prettier": "^1.6.0",
+    "eslint-plugin-flowtype": "^2.30.4",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-prettier": "^2.0.1",
+    "eslint-plugin-react": "^6.10.3",
+    "husky": "^0.13.3",
+    "jest": "^19.0.2",
+    "prettier": "^1.1.0",
+    "prettier-eslint": "^5.1.0",
+    "react": "^15.5.4",
+    "react-native": "^0.43.3",
+    "react-redux": "^5.0.4"
+  },
+  "peerDependencies": {
+    "react": "^15.5.4",
+    "react-native": "^0.43.3",
+    "react-redux": "^5.0.4",
+    "redux": "^3.6.0"
+  }
+}
