@@ -92,6 +92,36 @@ class App extends Component {
 
 ```
 
+## API
+
+#### Props
+
+- **containerStyle:** (View.propTypes.style) Styles to apply to the View that wraps the Toast
+
+- **messageStyle:** (Text.propTypes.style)
+Styles to apply to the Text component of the Toast
+
+- **errorStyle:** (View.propTypes.style)
+Same as containerStyle, only applied when the error Toast is being used
+
+- **warningStyle:** (View.propTypes.style)
+Same as containerStyle, only applied when the warning Toast is being used
+
+- **getMessageComponent:** (React.PropTypes.func)
+Function that returns a component to be used inside the Toast. Receives two params: message and an object: { error: bool, warning: bool }.
+Default value:
+```js
+Toast.defaultProps = {
+  getMessageComponent(message) {
+    return (
+      <Text style={this.messageStyle}>
+        {message}
+      </Text>
+    );
+  }
+};
+```
+
 ## Contributing
 
 1. Fork it
