@@ -122,6 +122,19 @@ Toast.defaultProps = {
 };
 ```
 
+- **children:** (React.PropTypes.element)
+Instead of passing a `getMessageComponent` function, you can pass a child component, which will be used to render the message.
+This child component will receive the `message`, `warning` and `error` props passed to the Toast component.
+Default value: `null`.
+Example:
+```jsx
+const CustomMessageComponent = ({ text }) => <Text style={{ color: 'red' }}>{text}</Text>;
+
+<Toast messageStyle={{ color: 'white' }} message>
+  {({ message }) => <CustomMessageComponent text={message}/>}
+</Toast>
+```
+
 ## Contributing
 
 1. Fork it

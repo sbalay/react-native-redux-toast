@@ -2,7 +2,7 @@ export const actions = {
   DISPLAY_ERROR: '@@TOAST/DISPLAY_ERROR',
   DISPLAY_WARNING: '@@TOAST/DISPLAY_WARNING',
   DISPLAY_INFO: '@@TOAST/DISPLAY_INFO',
-  HIDE: '@@TOAST/HIDE'
+  HIDE: '@@TOAST/HIDE',
 };
 
 const toastAction = (message, duration, type) => ({

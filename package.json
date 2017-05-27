@@ -2,7 +2,7 @@
   "name": "react-native-redux-toast",
   "version": "1.0.0",
   "description": "Cross platform implementation of Android's toast component. Easy to customize and integrate with redux. 100% written in JS.",
-  "main": "lib/index.js",
+  "main": "index.js",
   "scripts": {
     "lint": "eslint src && eslint index.js",
     "test": "jest",

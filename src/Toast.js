@@ -51,6 +51,18 @@ export default class Toast extends Component {
     });
   }
 
+  _getMessageComponent() {
+    const propsForChild = {
+      error: this.state.error,
+      warning: this.state.warning
+    };
+
+    if (this.props.children) {
+      return React.cloneElement(this.props.children, { message: this.state.message, ...propsForChild });
+    }
+    return this.props.getMessageComponent(this.state.message, propsForChild);
+  }
+
   render() {
     if (!this.state.present) {
       return null;
@@ -71,10 +83,7 @@ export default class Toast extends Component {
         ]}
       >
         <View style={messageStyles}>
-          {this.props.getMessageComponent(this.state.message, {
-            error: this.state.error,
-            warning: this.state.warning
-          })}
+          {this._getMessageComponent()}
         </View>
       </Animated.View>
     );
@@ -100,5 +109,6 @@ Toast.propTypes = {
   warning: React.PropTypes.bool,
   warningStyle: View.propTypes.style,
   duration: React.PropTypes.number,
-  getMessageComponent: React.PropTypes.func
+  getMessageComponent: React.PropTypes.func,
+  children: React.PropTypes.element
 };
