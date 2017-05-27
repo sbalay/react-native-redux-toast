@@ -128,8 +128,10 @@ This child component will receive the `message`, `warning` and `error` props pas
 Default value: `null`.
 Example:
 ```jsx
-<Toast messageStyle={{ color: 'white' }}>
-  <Text>I'm a toast!</Text>
+const CustomMessageComponent = ({ text }) => <Text style={{ color: 'red' }}>{text}</Text>;
+
+<Toast messageStyle={{ color: 'white' }} message>
+  {({ message }) => <CustomMessageComponent text={message}/>}
 </Toast>
 ```
 

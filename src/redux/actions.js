@@ -1,8 +1,8 @@
 export const actions = {
-  DISPLAY_ERROR: Symbol('DISPLAY_ERROR'),
-  DISPLAY_WARNING: Symbol('DISPLAY_WARNING'),
-  DISPLAY_INFO: Symbol('DISPLAY_INFO'),
-  HIDE: Symbol('HIDE'),
+  DISPLAY_ERROR: '@@TOAST/DISPLAY_ERROR',
+  DISPLAY_WARNING: '@@TOAST/DISPLAY_WARNING',
+  DISPLAY_INFO: '@@TOAST/DISPLAY_INFO',
+  HIDE: '@@TOAST/HIDE',
 };
 
 const toastAction = (message, duration, type) => ({
