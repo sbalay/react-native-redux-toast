@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { View, Animated, Text } from 'react-native';
 
 import styles from './Toast.styles';
@@ -93,12 +94,12 @@ Toast.defaultProps = {
 
 Toast.propTypes = {
   containerStyle: View.propTypes.style,
-  message: React.PropTypes.string,
+  message: PropTypes.string,
   messageStyle: Text.propTypes.style, // eslint-disable-line react/no-unused-prop-types
-  error: React.PropTypes.bool,
+  error: PropTypes.bool,
   errorStyle: View.propTypes.style,
-  warning: React.PropTypes.bool,
+  warning: PropTypes.bool,
   warningStyle: View.propTypes.style,
-  duration: React.PropTypes.number,
-  getMessageComponent: React.PropTypes.func
+  duration: PropTypes.number,
+  getMessageComponent: PropTypes.func
 };
