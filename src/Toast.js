@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Animated, Text } from 'react-native';
+import { Dimensions, Keyboard, View, Animated, Text } from 'react-native';
 
 import styles from './Toast.styles';
 
 import { actionCreators as toastActions } from './redux/actions';
+
+const DIMENSIONS = Dimensions.get('window');
+const positions = {
+  BOTTOM: -100
+};
 
 export default class Toast extends Component {
   state = {
@@ -14,6 +19,12 @@ export default class Toast extends Component {
     message: '',
     dismissTimeout: null
   };
+
+  componentWillMount() {
+    this.keyboardDidChangeFrame = Keyboard.addListener('keyboardDidChangeFrame', ({ endCoordinates }) => {
+      this.KEYBOARD_HEIGHT = DIMENSIONS.height - endCoordinates.screenY;
+    });
+  }
 
   componentWillReceiveProps({ message, error, duration, warning }) {
     if (message) {
@@ -26,6 +37,13 @@ export default class Toast extends Component {
       this.hide();
     }
   }
+
+  componentWillUnmount() {
+    this.keyboardDidChangeFrame.remove();
+  }
+
+  KEYBOARD_HEIGHT = 0;
+  keyboardDidChangeFrame = {};
 
   show(message, { error, warning, dismissTimeout }) {
     this.setState(
@@ -53,6 +71,7 @@ export default class Toast extends Component {
   }
 
   render() {
+    const { position: offset } = this.props;
     if (!this.state.present) {
       return null;
     }
@@ -63,11 +82,34 @@ export default class Toast extends Component {
     } else if (this.state.warning) {
       messageStyles.push(styles.warning, this.props.warningStyle);
     }
+    let position = {
+      top: 0,
+      bottom: this.KEYBOARD_HEIGHT
+    };
+    let alignment = {
+      justifyContent: 'center'
+    };
+    let topOrBottom = 'top';
+    if (offset) {
+      let value = offset;
+      if (offset < 0) {
+        topOrBottom = 'bottom';
+        value = this.KEYBOARD_HEIGHT - offset;
+      }
+      position = {
+        [topOrBottom]: value
+      };
+      alignment = {
+        justifyContent: 'flex-start'
+      };
+    }
     return (
       <Animated.View
         style={[
           styles.shadow,
           styles.container,
+          position,
+          alignment,
           { opacity: this.state.fadeAnimation, shadowOpacity: this.state.shadowOpacity }
         ]}
       >
@@ -89,7 +131,8 @@ Toast.defaultProps = {
         {message}
       </Text>
     );
-  }
+  },
+  position: positions.BOTTOM
 };
 
 Toast.propTypes = {
@@ -101,5 +144,6 @@ Toast.propTypes = {
   warning: PropTypes.bool,
   warningStyle: View.propTypes.style,
   duration: PropTypes.number,
-  getMessageComponent: PropTypes.func
+  getMessageComponent: PropTypes.func,
+  position: PropTypes.number
 };
