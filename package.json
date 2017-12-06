@@ -9,6 +9,7 @@
     "coverage": "jest --coverage",
     "build": "babel index.js -d lib && babel src -d lib/src",
     "prepublish": "npm run build",
+    "preinstall": "npm i -g babel-cli",
     "postinstall": "npm run build",
     "lint-diff": "git diff --name-only --cached --relative | grep \\\\.js$ | xargs eslint",
     "precommit": "npm run lint-diff"
