@@ -122,6 +122,16 @@ Toast.defaultProps = {
 };
 ```
 
+- **position:** (React.PropTypes.number)
+The position of toast and it must be a number. If it's set greater than 0, the position will be on top with that value. if it's not specified, the default is -100 and will transform to 100 in the render function and the position will be on bottom with that value. for instance:
+```js
+  <Toast
+    position={50} // equivalent { top: 50 }
+    messageStyle={{ color: Colors.snow }}
+    containerStyle={{ backgroundColor: Colors.primary }}
+  />
+```
+
 ## Contributing
 
 1. Fork it
