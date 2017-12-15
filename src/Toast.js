@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Animated, Text, ViewPropTypes } from 'react-native';
+import { View, Animated, Text, ViewPropTypes as RNViewPropTypes } from 'react-native';
 
 import styles from './Toast.styles';
 
 import { actionCreators as toastActions } from './redux/actions';
+
+const ViewPropTypes = RNViewPropTypes ? RNViewPropTypes : View.propTypes;
 
 export default class Toast extends Component {
   state = {
@@ -93,13 +95,13 @@ Toast.defaultProps = {
 };
 
 Toast.propTypes = {
-  containerStyle: ViewPropTypes || View.propTypes.style,
+  containerStyle: ViewPropTypes.style,
   message: PropTypes.string,
   messageStyle: Text.propTypes.style, // eslint-disable-line react/no-unused-prop-types
   error: PropTypes.bool,
-  errorStyle: ViewPropTypes || View.propTypes.style,
+  errorStyle: ViewPropTypes.style,
   warning: PropTypes.bool,
-  warningStyle: ViewPropTypes || View.propTypes.style,
+  warningStyle: ViewPropTypes.style,
   duration: PropTypes.number,
   getMessageComponent: PropTypes.func
 };
