@@ -6,7 +6,7 @@ import styles from './Toast.styles';
 
 import { actionCreators as toastActions } from './redux/actions';
 
-const ViewPropTypes = RNViewPropTypes ? RNViewPropTypes : View.propTypes;
+const ViewPropTypes = RNViewPropTypes || View.propTypes;
 
 export default class Toast extends Component {
   state = {
