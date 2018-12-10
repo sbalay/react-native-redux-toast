@@ -35,6 +35,8 @@
     "seamless-immutable": "^7.1.2"
   },
   "devDependencies": {
+    "@babel/cli": "^7.2.0",
+    "@babel/core": "^7.2.0",
     "babel-cli": "^6.24.1",
     "babel-eslint": "^7.2.2",
     "babel-jest": "^19.0.0",

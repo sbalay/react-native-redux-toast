@@ -70,6 +70,7 @@ export default class Toast extends Component {
         style={[
           styles.shadow,
           styles.container,
+          this.props.style,
           { opacity: this.state.fadeAnimation, shadowOpacity: this.state.shadowOpacity }
         ]}
       >
@@ -103,5 +104,6 @@ Toast.propTypes = {
   warning: PropTypes.bool,
   warningStyle: ViewPropTypes.style,
   duration: PropTypes.number,
-  getMessageComponent: PropTypes.func
+  getMessageComponent: PropTypes.func,
+  style: ViewPropTypes.style
 };
