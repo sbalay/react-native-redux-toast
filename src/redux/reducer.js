@@ -1,5 +1,3 @@
-import Immutable from 'seamless-immutable';
-
 import { actions } from './actions';
 
 const defaultState = {
@@ -9,21 +7,18 @@ const defaultState = {
   duration: null
 };
 
-export default function reducer(state = Immutable(defaultState), action) {
+export default function reducer(state = defaultState, action) {
   switch (action.type) {
     case actions.HIDE:
     case actions.DISPLAY_ERROR:
     case actions.DISPLAY_WARNING:
     case actions.DISPLAY_INFO: {
-      return state.merge(
-        {
-          message: action.payload.message,
-          duration: action.payload.duration,
-          error: action.type === actions.DISPLAY_ERROR,
-          warning: action.type === actions.DISPLAY_WARNING
-        },
-        { deep: true }
-      );
+      return {
+        message: action.payload.message,
+        duration: action.payload.duration,
+        error: action.type === actions.DISPLAY_ERROR,
+        warning: action.type === actions.DISPLAY_WARNING
+      };
     }
     default: {
       return state;
