@@ -18,7 +18,6 @@ export default class Toast extends Component {
   };
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    console.log(nextProps)
     const { message, error, duration, warning } = nextProps
     if (message) {
       const dismissTimeout = setTimeout(() => {
