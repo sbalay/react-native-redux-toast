@@ -18,6 +18,9 @@ export default class Toast extends Component {
   };
 
   UNSAFE_componentWillReceiveProps({ message, error, duration, warning }) {
+    if(!message && !error && !duration && !warning) {
+      return;
+    }
     if (message) {
       const dismissTimeout = setTimeout(() => {
         this.props.dispatch(toastActions.hide());
