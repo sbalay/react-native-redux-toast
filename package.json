@@ -51,7 +51,7 @@
     "prettier": "^1.1.0",
     "prettier-eslint": "^5.1.0",
     "react": "^15.5.4",
-    "react-native": "^0.43.3",
+    "react-native": "^0.60.4",
     "react-redux": "^5.0.4"
   },
   "peerDependencies": {
