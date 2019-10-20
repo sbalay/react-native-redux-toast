@@ -1,10 +1,5 @@
-import ToastContainer from './src/ToastContainer';
+import Toast from './src/Toast';
 import { actions, actionCreators } from './src/redux/actions';
 import reducer from './src/redux/reducer';
 
-export {
-  ToastContainer as Toast,
-  actions as ToastActions,
-  actionCreators as ToastActionsCreators,
-  reducer as toastReducer
-};
+export { Toast, actions as ToastActions, actionCreators as ToastActionsCreators, reducer as toastReducer };

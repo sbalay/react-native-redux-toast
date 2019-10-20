@@ -1,87 +1,90 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { View, Animated, Text, ViewPropTypes as RNViewPropTypes } from 'react-native';
+import React, { useEffect } from 'react';
 
-import styles from './Toast.styles';
+import PropTypes from 'prop-types';
+import { View, Animated, Text, ViewPropTypes } from 'react-native';
+
+import { useDispatch, useSelector } from 'react-redux';
 
 import { actionCreators as toastActions } from './redux/actions';
+import styles from './Toast.styles';
 
-const ViewPropTypes = RNViewPropTypes || View.propTypes;
+const PropTypesViews = ViewPropTypes || View.propTypes;
 
-export default class Toast extends Component {
-  state = {
-    fadeAnimation: new Animated.Value(0),
-    shadowOpacity: new Animated.Value(0),
-    present: false,
-    message: '',
-    dismissTimeout: null
-  };
+export default function Toast(props) {
+  const { duration, message: tMessage, error: tError, warning: tWarning } = useSelector(state => state.toast);
 
-  componentWillReceiveProps({ message, error, duration, warning }) {
-    if (message) {
-      const dismissTimeout = setTimeout(() => {
-        this.props.dispatch(toastActions.hide());
-      }, duration);
-      clearTimeout(this.state.dismissTimeout);
-      this.show(message, { error, warning, dismissTimeout });
-    } else {
-      this.hide();
-    }
+  const [fadeAnimation, setFadeAnimation] = new Animated.Value(0);
+  const [shadowOpacity, setShadowOpacity] = new Animated.Value(0);
+  const [present, setPresent] = useEffect(false);
+  const [message, setMessage] = useEffect(tMessage);
+  const [error, setError] = useEffect(tError);
+  const [warning, setWarning] = useEffect(tWarning);
+  const [dismissTimeout, setDismissTimeout] = useEffect(null);
+
+  const dispatch = useDispatch();
+
+  const { getMessageComponent, containerStyle, errorStyle, warningStyle } = props;
+
+  function show(messageS, { errorS, warningS, dismissTimeoutS }) {
+    setPresent(true);
+    setMessage(messageS);
+    setError(errorS);
+    setWarning(warningS);
+    setDismissTimeout(dismissTimeoutS);
+    setFadeAnimation(new Animated.Value(0));
+    setShadowOpacity(new Animated.Value(0));
+
+    Animated.timing(fadeAnimation, { toValue: 1 }).start();
+    Animated.timing(shadowOpacity, { toValue: 0.5 }).start();
   }
 
-  show(message, { error, warning, dismissTimeout }) {
-    this.setState(
-      {
-        present: true,
-        fadeAnimation: new Animated.Value(0),
-        shadowOpacity: new Animated.Value(0),
-        message,
-        error,
-        warning,
-        dismissTimeout
-      },
-      () => {
-        Animated.timing(this.state.fadeAnimation, { toValue: 1 }).start();
-        Animated.timing(this.state.shadowOpacity, { toValue: 0.5 }).start();
-      }
-    );
-  }
-
-  hide() {
-    Animated.timing(this.state.shadowOpacity, { toValue: 0 }).start();
-    Animated.timing(this.state.fadeAnimation, { toValue: 0 }).start(() => {
-      this.setState({ present: false, message: null, error: false, warning: false, dismissTimeout: null });
+  function hide() {
+    Animated.timing(shadowOpacity, { toValue: 0 }).start();
+    Animated.timing(fadeAnimation, { toValue: 0 }).start(() => {
+      setPresent(false);
+      setMessage(null);
+      setError(false);
+      setWarning(false);
+      setDismissTimeout(null);
     });
   }
 
-  render() {
-    if (!this.state.present) {
-      return null;
-    }
+  useEffect(
+    () => {
+      if (message) {
+        const timeout = setTimeout(() => {
+          dispatch(toastActions.hide());
+        }, duration);
+        clearTimeout(dismissTimeout);
+        show(message, { error, warning, timeout });
+      } else {
+        hide();
+      }
+    },
+    [message]
+  );
 
-    const messageStyles = [styles.messageContainer, this.props.containerStyle];
-    if (this.state.error) {
-      messageStyles.push(styles.error, this.props.errorStyle);
-    } else if (this.state.warning) {
-      messageStyles.push(styles.warning, this.props.warningStyle);
-    }
-    return (
-      <Animated.View
-        style={[
-          styles.shadow,
-          styles.container,
-          { opacity: this.state.fadeAnimation, shadowOpacity: this.state.shadowOpacity }
-        ]}
-      >
-        <View style={messageStyles}>
-          {this.props.getMessageComponent(this.state.message, {
-            error: this.state.error,
-            warning: this.state.warning
-          })}
-        </View>
-      </Animated.View>
-    );
+  if (!present) {
+    return null;
   }
+
+  const messageStyles = [styles.messageContainer, containerStyle];
+  if (error) {
+    messageStyles.push(styles.error, errorStyle);
+  } else if (warning) {
+    messageStyles.push(styles.warning, warningStyle);
+  }
+
+  return (
+    <Animated.View style={[styles.shadow, styles.container, { opacity: fadeAnimation, shadowOpacity }]}>
+      <View style={messageStyles}>
+        {getMessageComponent(message, {
+          error,
+          warning
+        })}
+      </View>
+    </Animated.View>
+  );
 }
 
 Toast.defaultProps = {
@@ -95,13 +98,9 @@ Toast.defaultProps = {
 };
 
 Toast.propTypes = {
-  containerStyle: ViewPropTypes.style,
-  message: PropTypes.string,
+  containerStyle: PropTypesViews.style,
   messageStyle: Text.propTypes.style, // eslint-disable-line react/no-unused-prop-types
-  error: PropTypes.bool,
-  errorStyle: ViewPropTypes.style,
-  warning: PropTypes.bool,
-  warningStyle: ViewPropTypes.style,
-  duration: PropTypes.number,
+  errorStyle: PropTypesViews.style,
+  warningStyle: PropTypesViews.style,
   getMessageComponent: PropTypes.func
 };
