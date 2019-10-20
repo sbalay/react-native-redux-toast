@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import { Toast } from 'react-native-redux-toast';
 
 import store from './store';
-import App from './app';
+import App from './App';
 
 export default function main() {
   return (
