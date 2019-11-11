@@ -71,6 +71,7 @@ export default class Toast extends Component {
         style={[
           styles.shadow,
           styles.container,
+          this.props.toastStyle,
           { opacity: this.state.fadeAnimation, shadowOpacity: this.state.shadowOpacity }
         ]}
       >
