@@ -71,7 +71,7 @@ export default class Toast extends Component {
         style={[
           styles.shadow,
           styles.container,
-          this.props.toastStyle,
+          this.props.customToastStyle,
           { opacity: this.state.fadeAnimation, shadowOpacity: this.state.shadowOpacity }
         ]}
       >
@@ -98,6 +98,7 @@ Toast.defaultProps = {
 
 Toast.propTypes = {
   containerStyle: ViewPropTypes.style,
+  customToastStyle: ViewPropTypes.style,
   message: PropTypes.string,
   messageStyle: Text.propTypes.style, // eslint-disable-line react/no-unused-prop-types
   error: PropTypes.bool,
