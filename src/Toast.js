@@ -74,6 +74,7 @@ export default class Toast extends Component {
           this.props.customToastStyle,
           { opacity: this.state.fadeAnimation, shadowOpacity: this.state.shadowOpacity }
         ]}
+        pointerEvents='none'
       >
         <View style={messageStyles}>
           {this.props.getMessageComponent(this.state.message, {
