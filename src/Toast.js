@@ -42,15 +42,15 @@ export default class Toast extends Component {
         dismissTimeout
       },
       () => {
-        Animated.timing(this.state.fadeAnimation, { toValue: 1 }).start();
-        Animated.timing(this.state.shadowOpacity, { toValue: 0.5 }).start();
+        Animated.timing(this.state.fadeAnimation, { toValue: 1, useNativeDriver: true }).start();
+        Animated.timing(this.state.shadowOpacity, { toValue: 0.5, useNativeDriver: true }).start();
       }
     );
   }
 
   hide() {
-    Animated.timing(this.state.shadowOpacity, { toValue: 0 }).start();
-    Animated.timing(this.state.fadeAnimation, { toValue: 0 }).start(() => {
+    Animated.timing(this.state.shadowOpacity, { toValue: 0, useNativeDriver: true }).start();
+    Animated.timing(this.state.fadeAnimation, { toValue: 0, useNativeDriver: true }).start(() => {
       this.setState({ present: false, message: null, error: false, warning: false, dismissTimeout: null });
     });
   }
